@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BondStats Macro Flight Simulator</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Arial,sans-serif;
+background:#06111f;
+color:white;
+overflow-x:hidden;
+}
+
+body:before{
+content:"";
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at 20% 10%,rgba(0,153,255,.15),transparent 30%),
+radial-gradient(circle at 80% 0%,rgba(247,200,75,.12),transparent 25%);
+z-index:-1;
+}
+
+.wrap{
+width:min(1350px,92%);
+margin:auto;
+}
+
+.hero{
+padding:100px 0 70px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:60px;
+align-items:center;
+}
+
+.label{
+color:#f7c84b;
+text-transform:uppercase;
+letter-spacing:3px;
+font-size:13px;
+margin-bottom:20px;
+}
+
+.hero h1{
+font-size:clamp(50px,7vw,90px);
+line-height:.95;
+letter-spacing:-4px;
+margin-bottom:30px;
+}
+
+.hero p{
+font-size:22px;
+line-height:1.8;
+color:#b7c4d2;
+max-width:700px;
+}
+
+.panel{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.1);
+border-radius:40px;
+padding:35px;
+backdrop-filter:blur(25px);
+}
+
+.section-title{
+font-size:28px;
+margin-bottom:10px;
+}
+
+.section-sub{
+color:#b7c4d2;
+margin-bottom:35px;
+line-height:1.8;
+}
+
+.control{
+margin-bottom:30px;
+}
+
+.control-top{
+display:flex;
+justify-content:space-between;
+margin-bottom:12px;
+font-weight:700;
+}
+
+.control-top span{
+color:#f7c84b;
+}
+
+input[type=range]{
+width:100%;
+accent-color:#f7c84b;
+}
+
+.chain{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+margin-top:100px;
+}
+
+.box{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.1);
+border-radius:30px;
+padding:35px;
+}
+
+.box h3{
+font-size:30px;
+margin-bottom:15px;
+}
+
+.box p{
+color:#b7c4d2;
+line-height:1.8;
+}
+
+.arrow{
+text-align:center;
+font-size:45px;
+color:#f7c84b;
+}
+
+@media(max-width:1000px){
+
+.hero{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<section class="wrap">
+
+<div class="hero">
+
+<div>
+
+<div class="label">
+BondStats Macro Flight Simulator
+</div>
+
+<h1>
+Explore Monetary Transmission.
+</h1>
+
+<p>
+
+Understand how inflation, interest rates, oil prices and fiscal policy propagate through bonds, banks, credit and the economy.
+
+This is not a forecasting model.
+
+It is a framework for understanding.
+
+</p>
+
+</div>
+
+
+<div class="panel">
+
+<div class="section-title">
+Macro Dashboard
+</div>
+
+<div class="section-sub">
+Adjust macro variables to explore different scenarios.
+</div>
+
+<div class="control">
+
+<div class="control-top">
+
+<div>Inflation</div>
+
+<span>3%</span>
+
+</div>
+
+<input type="range">
+
+</div>
+
+
+<div class="control">
+
+<div class="control-top">
+
+<div>Interest Rates</div>
+
+<span>5%</span>
+
+</div>
+
+<input type="range">
+
+</div>
+
+
+<div class="control">
+
+<div class="control-top">
+
+<div>Oil Prices</div>
+
+<span>+20%</span>
+
+</div>
+
+<input type="range">
+
+</div>
+
+
+<div class="control">
+
+<div class="control-top">
+
+<div>Fiscal Deficit</div>
+
+<span>6%</span>
+
+</div>
+
+<input type="range">
+
+</div>
+
+
+<div class="control">
+
+<div class="control-top">
+
+<div>QE / QT</div>
+
+<span>Neutral</span>
+
+</div>
+
+<input type="range">
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="chain">
+
+<div class="box">
+
+<h3>
+Inflation
+</h3>
+
+<p>
+Price pressures influence monetary policy expectations.
+</p>
+
+</div>
+
+<div class="arrow">
+↓
+</div>
+
+<div class="box">
+
+<h3>
+Rates
+</h3>
+
+<p>
+Interest rates affect discount rates and financial conditions.
+</p>
+
+</div>
+
+<div class="arrow">
+↓
+</div>
+
+<div class="box">
+
+<h3>
+Bonds
+</h3>
+
+<p>
+Bond markets reprice risk and future growth expectations.
+</p>
+
+</div>
+
+<div class="arrow">
+↓
+</div>
+
+<div class="box">
+
+<h3>
+Banks
+</h3>
+
+<p>
+Bank balance sheets react to duration and funding pressures.
+</p>
+
+</div>
+
+<div class="arrow">
+↓
+</div>
+
+<div class="box">
+
+<h3>
+Credit
+</h3>
+
+<p>
+Tighter credit conditions influence investment and growth.
+</p>
+
+</div>
+
+<div class="arrow">
+↓
+</div>
+
+<div class="box">
+
+<h3>
+Growth
+</h3>
+
+<p>
+Economic activity responds to changes in financial conditions.
+</p>
+
+</div>
+
+</div>
+
+</section>
+<section class="wrap" style="padding:100px 0;">
+
+<div class="label">
+Output Engine
+</div>
+
+<h1 style="
+font-size:clamp(50px,7vw,90px);
+line-height:.95;
+letter-spacing:-4px;
+margin-bottom:30px;
+">
+System Dashboard
+</h1>
+
+<p style="
+font-size:22px;
+line-height:1.8;
+color:#b7c4d2;
+max-width:850px;
+margin-bottom:80px;
+">
+Changes in macro variables affect multiple parts of the financial system. The dashboard visualizes potential transmission channels.
+</p>
+
+
+<div style="
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:30px;
+">
+
+<div class="box">
+
+<h3>
+Bond Market
+</h3>
+
+<div style="
+height:14px;
+background:#222;
+border-radius:50px;
+overflow:hidden;
+margin:25px 0;
+">
+
+<div style="
+height:100%;
+width:70%;
+background:#f7c84b;
+">
+</div>
+
+</div>
+
+<p>
+Moderate stress. Rising rates increase duration pressure and yield volatility.
+</p>
+
+</div>
+
+
+
+<div class="box">
+
+<h3>
+Banking System
+</h3>
+
+<div style="
+height:14px;
+background:#222;
+border-radius:50px;
+overflow:hidden;
+margin:25px 0;
+">
+
+<div style="
+height:100%;
+width:55%;
+background:#4ea8ff;
+">
+</div>
+
+</div>
+
+<p>
+Funding conditions remain stable but unrealized losses increase.
+</p>
+
+</div>
+
+
+
+<div class="box">
+
+<h3>
+Housing Market
+</h3>
+
+<div style="
+height:14px;
+background:#222;
+border-radius:50px;
+overflow:hidden;
+margin:25px 0;
+">
+
+<div style="
+height:100%;
+width:60%;
+background:#ff8f3d;
+">
+</div>
+
+</div>
+
+<p>
+Higher rates reduce affordability and slow mortgage activity.
+</p>
+
+</div>
+
+
+
+<div class="box">
+
+<h3>
+US Dollar
+</h3>
+
+<div style="
+height:14px;
+background:#222;
+border-radius:50px;
+overflow:hidden;
+margin:25px 0;
+">
+
+<div style="
+height:100%;
+width:45%;
+background:#5fd887;
+">
+</div>
+
+</div>
+
+<p>
+Dollar strength attracts capital and tightens global liquidity.
+</p>
+
+</div>
+
+
+
+<div class="box">
+
+<h3>
+Inflation Outlook
+</h3>
+
+<div style="
+height:14px;
+background:#222;
+border-radius:50px;
+overflow:hidden;
+margin:25px 0;
+">
+
+<div style="
+height:100%;
+width:80%;
+background:#ff5d5d;
+">
+</div>
+
+</div>
+
+<p>
+Inflation remains elevated and continues to influence policy.
+</p>
+
+</div>
+
+
+
+<div class="box">
+
+<h3>
+Recession Risk
+</h3>
+
+<div style="
+height:14px;
+background:#222;
+border-radius:50px;
+overflow:hidden;
+margin:25px 0;
+">
+
+<div style="
+height:100%;
+width:50%;
+background:#ff3ea5;
+">
+</div>
+
+</div>
+
+<p>
+Tighter financial conditions increase downside risks to growth.
+</p>
+
+</div>
+
+</div>
+
+
+
+<div class="panel" style="margin-top:100px;">
+
+<div class="section-title">
+System Stress Indicator
+</div>
+
+<div class="section-sub">
+Macro conditions remain manageable but several transmission channels are showing elevated pressure.
+</div>
+
+<div style="
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+">
+
+<div class="box">
+
+<h3 style="color:#f7c84b;">
+Moderate
+</h3>
+
+<p>
+Overall System Stress
+</p>
+
+</div>
+
+
+<div class="box">
+
+<h3 style="color:#4ea8ff;">
+Watch
+</h3>
+
+<p>
+Banking Conditions
+</p>
+
+</div>
+
+
+<div class="box">
+
+<h3 style="color:#ff8f3d;">
+Tightening
+</h3>
+
+<p>
+Credit Conditions
+</p>
+
+</div>
+
+
+<div class="box">
+
+<h3 style="color:#5fd887;">
+Stable
+</h3>
+
+<p>
+Liquidity Conditions
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="label" style="margin-top:120px;">
+Transmission Layer
+</div>
+
+<h1 style="
+font-size:clamp(50px,7vw,90px);
+line-height:.95;
+letter-spacing:-4px;
+margin-bottom:30px;
+">
+Cause And Effect
+</h1>
+
+<p style="
+font-size:22px;
+line-height:1.8;
+color:#b7c4d2;
+max-width:850px;
+margin-bottom:80px;
+">
+Stress rarely appears in isolation. Shocks propagate through markets and institutions.
+</p>
+
+
+<div class="chain">
+
+<div class="box">
+
+<h3>
+Inflation Shock
+</h3>
+
+<p>
+
+Inflation
+
+<br><br>
+
+↓
+
+<br><br>
+
+Higher Rates
+
+</p>
+
+</div>
+
+<div class="arrow">
+→
+</div>
+
+<div class="box">
+
+<h3>
+Bond Losses
+</h3>
+
+<p>
+
+Duration Risk
+
+<br><br>
+
+↓
+
+<br><br>
+
+Bank Balance Sheets
+
+</p>
+
+</div>
+
+<div class="arrow">
+→
+</div>
+
+<div class="box">
+
+<h3>
+Credit Tightens
+</h3>
+
+<p>
+
+Lending Standards
+
+<br><br>
+
+↓
+
+<br><br>
+
+Financial Conditions
+
+</p>
+
+</div>
+
+<div class="arrow">
+→
+</div>
+
+<div class="box">
+
+<h3>
+Growth Slows
+</h3>
+
+<p>
+
+Investment
+
+<br><br>
+
+↓
+
+<br><br>
+
+Economic Activity
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+<section class="wrap" style="padding:100px 0 140px;">
+
+<div class="label">
+Policy Lab
+</div>
+
+<h1 style="
+font-size:clamp(50px,7vw,90px);
+line-height:.95;
+letter-spacing:-4px;
+margin-bottom:30px;
+">
+Policy Scenarios
+</h1>
+
+<p style="
+font-size:22px;
+line-height:1.8;
+color:#b7c4d2;
+max-width:900px;
+margin-bottom:80px;
+">
+Explore how different policy responses influence the financial system.
+</p>
+
+<div style="
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:30px;
+">
+
+<div class="box">
+<h3>Rate Hikes</h3>
+<p>
+Higher rates tighten financial conditions and increase pressure on bonds, banks and credit.
+</p>
+</div>
+
+<div class="box">
+<h3>Rate Cuts</h3>
+<p>
+Lower rates support growth and improve financial conditions.
+</p>
+</div>
+
+<div class="box">
+<h3>Quantitative Easing</h3>
+<p>
+Central banks inject liquidity and support financial markets.
+</p>
+</div>
+
+<div class="box">
+<h3>Quantitative Tightening</h3>
+<p>
+Balance sheet reduction withdraws liquidity from markets.
+</p>
+</div>
+
+<div class="box">
+<h3>Fiscal Expansion</h3>
+<p>
+Government spending supports growth but may increase inflationary pressures.
+</p>
+</div>
+
+<div class="box">
+<h3>Banking Stress</h3>
+<p>
+Deposit outflows and funding pressures increase systemic risks.
+</p>
+</div>
+
+</div>
+
+
+
+<div class="label" style="margin-top:140px;">
+Historical Scenarios
+</div>
+
+<h1 style="
+font-size:clamp(50px,7vw,90px);
+line-height:.95;
+letter-spacing:-4px;
+margin-bottom:30px;
+">
+Historical Case Studies
+</h1>
+
+<p style="
+font-size:22px;
+line-height:1.8;
+color:#b7c4d2;
+max-width:850px;
+margin-bottom:80px;
+">
+Compare current conditions with historical episodes.
+</p>
+
+<div style="
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:30px;
+">
+
+<div class="box">
+<h3>1970s Inflation</h3>
+<p>
+Oil shocks and persistent inflation forced aggressive monetary tightening.
+</p>
+</div>
+
+<div class="box">
+<h3>Volcker Shock</h3>
+<p>
+Higher rates restored credibility but triggered recessions.
+</p>
+</div>
+
+<div class="box">
+<h3>2008 Financial Crisis</h3>
+<p>
+Credit markets froze and central banks became lenders of last resort.
+</p>
+</div>
+
+<div class="box">
+<h3>COVID 2020</h3>
+<p>
+Massive QE and fiscal stimulus stabilized markets.
+</p>
+</div>
+
+<div class="box">
+<h3>2022 Inflation Shock</h3>
+<p>
+Rapid tightening increased volatility across bonds and banks.
+</p>
+</div>
+
+<div class="box">
+<h3>Future Scenarios</h3>
+<p>
+Stress-testing unknown environments and policy responses.
+</p>
+</div>
+
+</div>
+
+
+
+<div class="label" style="margin-top:140px;">
+Macro Cockpit
+</div>
+
+<h1 style="
+font-size:clamp(50px,7vw,90px);
+line-height:.95;
+letter-spacing:-4px;
+margin-bottom:30px;
+">
+System Overview
+</h1>
+
+<p style="
+font-size:22px;
+line-height:1.8;
+color:#b7c4d2;
+max-width:850px;
+margin-bottom:80px;
+">
+The financial system behaves like an interconnected network rather than isolated markets.
+</p>
+
+<div class="chain">
+
+<div class="box">
+
+<h3>
+Inflation
+</h3>
+
+<p>
+Price Pressures
+</p>
+
+</div>
+
+<div class="arrow">
+→
+</div>
+
+<div class="box">
+
+<h3>
+Bonds
+</h3>
+
+<p>
+Yield Repricing
+</p>
+
+</div>
+
+<div class="arrow">
+→
+</div>
+
+<div class="box">
+
+<h3>
+Banks
+</h3>
+
+<p>
+Balance Sheets
+</p>
+
+</div>
+
+<div class="arrow">
+→
+</div>
+
+<div class="box">
+
+<h3>
+Credit
+</h3>
+
+<p>
+Financial Conditions
+</p>
+
+</div>
+
+<div class="arrow">
+→
+</div>
+
+<div class="box">
+
+<h3>
+Economy
+</h3>
+
+<p>
+Growth & Employment
+</p>
+
+</div>
+
+</div>
+
+
+
+<div style="
+margin-top:140px;
+padding:100px 60px;
+border-radius:40px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.1);
+text-align:center;
+">
+
+<div class="label">
+BondStats Macro Flight Simulator
+</div>
+
+<h1 style="
+font-size:clamp(50px,7vw,90px);
+line-height:.95;
+margin-bottom:40px;
+">
+The Operating System For Understanding Macro.
+</h1>
+
+<p style="
+max-width:950px;
+margin:auto;
+font-size:24px;
+line-height:1.8;
+color:#b7c4d2;
+">
+
+Explore how inflation, rates, bonds, banks, credit and policy interact inside the global financial system.
+
+Not predictions.
+
+Understanding.
+
+</p>
+
+</div>
+
+
+<footer style="
+padding:120px 0 50px;
+text-align:center;
+color:#7f8ea1;
+font-size:18px;
+">
+
+BondStats Macro Flight Simulator © 2026
+
+<br><br>
+
+Understanding Monetary Transmission.
+
+</footer>
+
+</section>
+
+</body>
+</html>
