@@ -5,289 +5,470 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>BondStats Macro Flight Simulator</title>
-<meta name="description"
-content="Explore how policy, inflation and financial shocks propagate through bonds, banks, credit and the economy.">
 
-<link rel="stylesheet" href="style.css">
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
+body{
+font-family:Arial,sans-serif;
+background:#06111f;
+color:white;
+overflow-x:hidden;
+}
+
+body:before{
+content:"";
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at 20% 10%,rgba(0,153,255,.16),transparent 28%),
+radial-gradient(circle at 80% 0%,rgba(247,200,75,.12),transparent 25%),
+radial-gradient(circle at 50% 90%,rgba(255,0,120,.08),transparent 30%);
+z-index:-1;
+}
+
+nav{
+position:sticky;
+top:0;
+z-index:100;
+padding:20px 7%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(5,15,25,.78);
+backdrop-filter:blur(20px);
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.logo{
+font-size:26px;
+font-weight:800;
+letter-spacing:-1px;
+}
+
+.logo span{
+color:#f7c84b;
+}
+
+.nav-label{
+color:#b7c4d2;
+font-size:13px;
+letter-spacing:2px;
+text-transform:uppercase;
+}
+
+.wrap{
+width:min(1350px,92%);
+margin:auto;
+}
+
+.hero{
+padding:90px 0 60px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:60px;
+align-items:center;
+}
+
+.label{
+color:#f7c84b;
+text-transform:uppercase;
+letter-spacing:3px;
+font-size:13px;
+font-weight:700;
+margin-bottom:20px;
+}
+
+h1{
+font-size:clamp(50px,7vw,92px);
+line-height:.92;
+letter-spacing:-4px;
+margin-bottom:30px;
+}
+
+.hero p{
+font-size:22px;
+line-height:1.75;
+color:#b7c4d2;
+max-width:720px;
+}
+
+.cockpit{
+height:460px;
+border-radius:42px;
+background:rgba(255,255,255,.055);
+border:1px solid rgba(255,255,255,.1);
+backdrop-filter:blur(25px);
+position:relative;
+overflow:hidden;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 30px 90px rgba(0,0,0,.35);
+}
+
+.cockpit:before{
+content:"";
+position:absolute;
+inset:-50%;
+background:conic-gradient(
+transparent,
+rgba(247,200,75,.20),
+transparent,
+rgba(0,153,255,.20),
+transparent,
+rgba(255,0,120,.14),
+transparent
+);
+animation:spin 18s linear infinite;
+}
+
+@keyframes spin{
+100%{
+transform:rotate(360deg);
+}
+}
+
+.orbit{
+position:absolute;
+border:1px dashed rgba(247,200,75,.25);
+border-radius:50%;
+z-index:1;
+}
+
+.orbit.one{
+width:300px;
+height:300px;
+}
+
+.orbit.two{
+width:420px;
+height:420px;
+opacity:.55;
+}
+
+.core{
+position:relative;
+z-index:2;
+width:165px;
+height:165px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+font-weight:900;
+background:linear-gradient(135deg,#ff5d5d,#ff3ea5);
+box-shadow:0 0 60px rgba(255,62,165,.45);
+}
+
+.chip{
+position:absolute;
+z-index:3;
+padding:13px 17px;
+border-radius:18px;
+background:rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.12);
+backdrop-filter:blur(16px);
+font-weight:700;
+}
+
+.chip1{
+top:35px;
+left:50%;
+transform:translateX(-50%);
+}
+
+.chip2{
+right:30px;
+top:47%;
+}
+
+.chip3{
+bottom:38px;
+right:88px;
+}
+
+.chip4{
+bottom:38px;
+left:88px;
+}
+
+.chip5{
+left:30px;
+top:47%;
+}
+
+.dashboard{
+padding:30px 0 70px;
+display:grid;
+grid-template-columns:420px 1fr;
+gap:30px;
+align-items:start;
+}
+
+.panel{
+background:rgba(255,255,255,.055);
+border:1px solid rgba(255,255,255,.1);
+border-radius:36px;
+padding:32px;
+backdrop-filter:blur(24px);
+box-shadow:0 22px 70px rgba(0,0,0,.26);
+}
+
+.panel h2{
+font-size:34px;
+letter-spacing:-1px;
+margin-bottom:12px;
+}
+
+.panel-sub{
+color:#b7c4d2;
+line-height:1.7;
+margin-bottom:35px;
+}
+
+.control{
+margin-bottom:30px;
+}
+
+.control label{
+display:flex;
+justify-content:space-between;
+gap:20px;
+font-weight:800;
+margin-bottom:12px;
+}
+
+.control label span{
+color:#f7c84b;
+}
+
+input[type=range]{
+width:100%;
+accent-color:#f7c84b;
+}
+
+@media(max-width:1000px){
+.hero,
+.dashboard{
+grid-template-columns:1fr;
+}
+
+.nav-label{
+display:none;
+}
+}
+</style>
 </head>
+
 <body>
 
 <nav>
-
-<div class="logo">
-Bond<span>Stats</span>
-</div>
-
-<div class="nav-label">
-Macro Flight Simulator
-</div>
-
+<div class="logo">Bond<span>Stats</span></div>
+<div class="nav-label">Macro Flight Simulator</div>
 </nav>
 
-
+<main class="wrap">
 
 <section class="hero">
 
-<div class="hero-left">
-
-<div class="eyebrow">
-BondStats Policy Lab
-</div>
+<div>
+<div class="label">BondStats Policy Lab</div>
 
 <h1>
 Explore Monetary Transmission.
 </h1>
 
 <p>
-
-A visual sandbox for understanding how inflation, rates, oil shocks, fiscal deficits and liquidity propagate through bonds, banks, credit and growth.
-
+A visual sandbox for understanding how inflation, interest rates, oil shocks, fiscal deficits and QE/QT transmit through bonds, banks, credit and economic growth.
+<br><br>
+Not a forecast model. A framework for understanding.
 </p>
-
 </div>
 
-
-<div class="hero-right">
-
 <div class="cockpit">
+<div class="orbit one"></div>
+<div class="orbit two"></div>
 
 <div class="core">
 SYSTEM<br>STRESS
 </div>
 
-<div class="chip chip1">
-Inflation
-</div>
-
-<div class="chip chip2">
-Rates
-</div>
-
-<div class="chip chip3">
-Bonds
-</div>
-
-<div class="chip chip4">
-Banks
-</div>
-
-<div class="chip chip5">
-Credit
-</div>
-
-</div>
-
+<div class="chip chip1">Inflation</div>
+<div class="chip chip2">Rates</div>
+<div class="chip chip3">Bonds</div>
+<div class="chip chip4">Banks</div>
+<div class="chip chip5">Credit</div>
 </div>
 
 </section>
 
-
-
 <section class="dashboard">
 
-<div class="controls">
+<div class="panel">
 
-<h2>
-Scenario Builder
-</h2>
+<h2>Scenario Builder</h2>
+
+<p class="panel-sub">
+Move the sliders to simulate how macro shocks can propagate through the financial system.
+</p>
 
 <div class="control">
-
 <label>
 Inflation Shock
-<span id="inflationValue">
-3%
-</span>
+<span id="inflationValue">3%</span>
 </label>
-
-<input id="inflationSlider"
-type="range"
-min="0"
-max="8"
-step="0.5"
-value="3">
-
+<input id="inflation" type="range" min="0" max="8" step="0.5" value="3">
 </div>
 
-
-
 <div class="control">
-
 <label>
 Rate Shock
-<span id="rateValue">
-100 bp
-</span>
+<span id="ratesValue">100 bp</span>
 </label>
-
-<input id="rateSlider"
-type="range"
-min="0"
-max="400"
-step="25"
-value="100">
-
+<input id="rates" type="range" min="0" max="400" step="25" value="100">
 </div>
 
-
-
 <div class="control">
-
 <label>
 Oil Shock
-<span id="oilValue">
-20%
-</span>
+<span id="oilValue">20%</span>
 </label>
-
-<input id="oilSlider"
-type="range"
-min="0"
-max="80"
-step="5"
-value="20">
-
+<input id="oil" type="range" min="-30" max="80" step="5" value="20">
 </div>
 
-
-
 <div class="control">
-
 <label>
 Fiscal Deficit
-<span id="deficitValue">
-6%
-</span>
+<span id="deficitValue">6%</span>
 </label>
-
-<input id="deficitSlider"
-type="range"
-min="0"
-max="15"
-step="0.5"
-value="6">
-
+<input id="deficit" type="range" min="0" max="15" step="0.5" value="6">
 </div>
-
-
 
 <div class="control">
-
 <label>
 QE / QT
-<span id="qeValue">
-Neutral
-</span>
+<span id="qeValue">Neutral</span>
 </label>
-
-<input id="qeSlider"
-type="range"
-min="-100"
-max="100"
-step="10"
-value="0">
-
-</div>
-
-
-
-<div class="scenario-buttons">
-
-<button id="inflationScenario">
-1970s Inflation
-</button>
-
-<button id="volckerScenario">
-Volcker Shock
-</button>
-
-<button id="gfcScenario">
-2008 Crisis
-</button>
-
-<button id="covidScenario">
-COVID QE
-</button>
-
-<button id="inflation2022Scenario">
-2022 Inflation
-</button>
-
+<input id="qe" type="range" min="-100" max="100" step="10" value="0">
 </div>
 
 </div>
+<div class="panel">
 
+<h2>System Dashboard</h2>
 
-
-
-<div class="output-panel">
-
-<h2>
-System Dashboard
-</h2>
-
+<p class="panel-sub">
+Observe how stress propagates through bonds, banks, credit and growth.
+</p>
 
 <div class="metrics">
 
 <div class="metric">
+<small>System Stress</small>
+<strong id="stressScore">42</strong>
+</div>
 
-<small>
-System Stress
-</small>
+<div class="metric">
+<small>Bond Market</small>
+<strong id="bondState">Moderate</strong>
+</div>
 
-<strong id="systemStress">
-42
-</strong>
+<div class="metric">
+<small>Banking System</small>
+<strong id="bankState">Watch</strong>
+</div>
+
+<div class="metric">
+<small>Policy Bias</small>
+<strong id="policyState">Neutral</strong>
+</div>
 
 </div>
 
 
-<div class="metric">
 
-<small>
+<div class="output-section">
+
+<h3>Transmission Modules</h3>
+
+<div class="module-box">
+
+<div class="module-head">
 Bond Market
-</small>
+</div>
 
-<strong id="bondStress">
-Moderate
-</strong>
+<div class="bar">
+<span id="bondBar"></span>
+</div>
+
+<p id="bondText">
+Rising rates increase duration pressure and volatility.
+</p>
 
 </div>
 
 
-<div class="metric">
 
-<small>
+<div class="module-box">
+
+<div class="module-head">
 Banking System
-</small>
-
-<strong id="bankStress">
-Watch
-</strong>
-
 </div>
 
-
-<div class="metric">
-
-<small>
-Policy Bias
-</small>
-
-<strong id="policyBias">
-Neutral
-</strong>
-
+<div class="bar">
+<span id="bankBar"></span>
 </div>
+
+<p id="bankText">
+Balance sheets remain resilient but funding conditions tighten.
+</p>
 
 </div>
 
 
 
-<div id="network">
+<div class="module-box">
+
+<div class="module-head">
+Credit Conditions
+</div>
+
+<div class="bar">
+<span id="creditBar"></span>
+</div>
+
+<p id="creditText">
+Lending standards gradually tighten.
+</p>
 
 </div>
+
+
+
+<div class="module-box">
+
+<div class="module-head">
+Growth Outlook
+</div>
+
+<div class="bar">
+<span id="growthBar"></span>
+</div>
+
+<p id="growthText">
+Economic activity remains resilient.
+</p>
+
+</div>
+
+</div>
+
 
 
 <div id="insight">
@@ -302,99 +483,460 @@ Moderate stress across the financial system.
 
 
 
+<style>
 
-<section class="modules">
+.metrics{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:18px;
+margin-bottom:40px;
+}
 
-<div class="module">
+.metric{
+padding:22px;
+border-radius:24px;
+background:rgba(255,255,255,.07);
+border:1px solid rgba(255,255,255,.1);
+}
 
-<h3>
-Bond Market
-</h3>
+.metric small{
+display:block;
+margin-bottom:10px;
+color:#b7c4d2;
+}
 
-<div class="bar">
-<span id="bondBar"></span>
-</div>
+.metric strong{
+font-size:30px;
+color:#f7c84b;
+}
 
-<p id="bondText">
-Duration pressure increasing.
+.output-section{
+display:grid;
+gap:25px;
+}
+
+.output-section h3{
+font-size:28px;
+margin-bottom:10px;
+}
+
+.module-box{
+padding:25px;
+border-radius:25px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.1);
+}
+
+.module-head{
+font-size:24px;
+font-weight:800;
+margin-bottom:18px;
+}
+
+.bar{
+height:14px;
+background:#1a2430;
+border-radius:999px;
+overflow:hidden;
+margin-bottom:18px;
+}
+
+.bar span{
+display:block;
+height:100%;
+width:55%;
+background:#f7c84b;
+border-radius:999px;
+transition:.3s;
+}
+
+.module-box p{
+color:#b7c4d2;
+line-height:1.8;
+}
+
+#insight{
+margin-top:35px;
+padding:25px;
+border-radius:25px;
+background:rgba(247,200,75,.08);
+border:1px solid rgba(247,200,75,.16);
+line-height:1.8;
+color:#b7c4d2;
+}
+
+@media(max-width:1000px){
+
+.metrics{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+@media(max-width:700px){
+
+.metrics{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+<section class="wrap" style="padding:60px 0 120px;">
+
+<div class="panel">
+
+<h2>Historical Scenarios</h2>
+
+<p class="panel-sub">
+Load famous macro environments and observe how stress propagates through the system.
 </p>
 
+<div class="scenario-grid">
+
+<button onclick="loadScenario('1970s')">
+1970s Inflation
+</button>
+
+<button onclick="loadScenario('volcker')">
+Volcker Shock
+</button>
+
+<button onclick="loadScenario('gfc')">
+2008 Crisis
+</button>
+
+<button onclick="loadScenario('covid')">
+COVID QE
+</button>
+
+<button onclick="loadScenario('2022')">
+2022 Inflation
+</button>
+
+</div>
+
 </div>
 
 
 
-<div class="module">
+<div class="panel" style="margin-top:40px;">
 
-<h3>
-Banking System
-</h3>
+<h2>Transmission Network</h2>
 
-<div class="bar">
-<span id="bankBar"></span>
-</div>
-
-<p id="bankText">
-Funding conditions remain stable.
+<p class="panel-sub">
+Stress propagates through interconnected markets.
 </p>
 
+<div class="network">
+
+<div class="node">
+Inflation
+</div>
+
+<div class="arrow">
+↓
+</div>
+
+<div class="node">
+Rates
+</div>
+
+<div class="arrow">
+↓
+</div>
+
+<div class="node">
+Bonds
+</div>
+
+<div class="arrow">
+↓
+</div>
+
+<div class="node">
+Banks
+</div>
+
+<div class="arrow">
+↓
+</div>
+
+<div class="node">
+Credit
+</div>
+
+<div class="arrow">
+↓
+</div>
+
+<div class="node">
+Growth
+</div>
+
+</div>
+
 </div>
 
 
 
-<div class="module">
+<div class="panel" style="margin-top:40px;">
 
-<h3>
-Credit Conditions
-</h3>
+<h2>Macro Flight Computer</h2>
 
-<div class="bar">
-<span id="creditBar"></span>
-</div>
-
-<p id="creditText">
-Credit slowly tightening.
+<p class="panel-sub">
+Live system interpretation.
 </p>
 
-</div>
+<div id="macroInsight">
 
+Moderate stress.
 
-
-<div class="module">
-
-<h3>
-Growth Outlook
-</h3>
-
-<div class="bar">
-<span id="growthBar"></span>
-</div>
-
-<p id="growthText">
-Growth remains resilient.
-</p>
+Financial conditions are tightening, but the banking system remains resilient.
 
 </div>
 
-</section>
-
+</div>
 
 
 
 <footer>
 
-BondStats Macro Flight Simulator © 2026
+<h1>
+BondStats Macro Flight Simulator
+</h1>
+
+<p>
+
+Explore how inflation, rates, bonds, banks, credit and growth interact inside the financial system.
+
+Not prediction.
+
+Understanding.
+
+</p>
 
 </footer>
 
+</section>
 
 
-<script src="scenarios.js"></script>
 
-<script src="engine.js"></script>
+<style>
 
-<script src="network.js"></script>
+.scenario-grid{
 
-<script src="script.js"></script>
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:18px;
+
+}
+
+.scenario-grid button{
+
+padding:18px;
+
+background:rgba(255,255,255,.06);
+
+border:1px solid rgba(255,255,255,.1);
+
+border-radius:20px;
+
+color:white;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.scenario-grid button:hover{
+
+border-color:#f7c84b;
+
+transform:translateY(-4px);
+
+}
+
+.network{
+
+display:flex;
+align-items:center;
+justify-content:center;
+flex-wrap:wrap;
+
+gap:20px;
+
+padding:50px 0;
+
+}
+
+.node{
+
+padding:22px 28px;
+
+border-radius:22px;
+
+background:rgba(255,255,255,.06);
+
+border:1px solid rgba(255,255,255,.1);
+
+font-weight:700;
+
+}
+
+.arrow{
+
+font-size:40px;
+
+color:#f7c84b;
+
+}
+
+#macroInsight{
+
+padding:30px;
+
+border-radius:25px;
+
+background:rgba(247,200,75,.08);
+
+border:1px solid rgba(247,200,75,.18);
+
+line-height:1.9;
+
+color:#b7c4d2;
+
+font-size:18px;
+
+}
+
+footer{
+
+text-align:center;
+
+padding:120px 0 40px;
+
+}
+
+footer h1{
+
+font-size:clamp(50px,7vw,90px);
+
+margin-bottom:30px;
+
+}
+
+footer p{
+
+max-width:900px;
+
+margin:auto;
+
+font-size:24px;
+
+line-height:1.8;
+
+color:#b7c4d2;
+
+}
+
+@media(max-width:900px){
+
+.network{
+
+flex-direction:column;
+
+}
+
+.arrow{
+
+transform:rotate(90deg);
+
+}
+
+}
+
+</style>
+
+
+
+<script>
+
+function loadScenario(type){
+
+if(type==="1970s"){
+
+inflation.value=7;
+rates.value=300;
+oil.value=70;
+deficit.value=5;
+qe.value=-50;
+
+macroInsight.innerHTML=
+"Persistent inflation and oil shocks increase pressure on bonds, credit and growth.";
+
+}
+
+if(type==="volcker"){
+
+inflation.value=8;
+rates.value=400;
+oil.value=20;
+deficit.value=4;
+qe.value=-100;
+
+macroInsight.innerHTML=
+"Aggressive tightening restores credibility but creates recession risks.";
+
+}
+
+if(type==="gfc"){
+
+inflation.value=1;
+rates.value=0;
+oil.value=-20;
+deficit.value=10;
+qe.value=100;
+
+macroInsight.innerHTML=
+"Credit markets freeze and central banks become lenders of last resort.";
+
+}
+
+if(type==="covid"){
+
+inflation.value=2;
+rates.value=0;
+oil.value=-30;
+deficit.value=15;
+qe.value=100;
+
+macroInsight.innerHTML=
+"Massive QE and fiscal stimulus stabilize markets and support growth.";
+
+}
+
+if(type==="2022"){
+
+inflation.value=6;
+rates.value=350;
+oil.value=60;
+deficit.value=7;
+qe.value=-60;
+
+macroInsight.innerHTML=
+"Rapid tightening increases stress across bonds and banks.";
+
+}
+
+}
+
+</script>
+
+</main>
 
 </body>
 </html>
