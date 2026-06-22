@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BondStats Macro Flight Simulator</title>
+<meta name="description"
+content="Explore how policy, inflation and financial shocks propagate through bonds, banks, credit and the economy.">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<nav>
+
+<div class="logo">
+Bond<span>Stats</span>
+</div>
+
+<div class="nav-label">
+Macro Flight Simulator
+</div>
+
+</nav>
+
+
+
+<section class="hero">
+
+<div class="hero-left">
+
+<div class="eyebrow">
+BondStats Policy Lab
+</div>
+
+<h1>
+Explore Monetary Transmission.
+</h1>
+
+<p>
+
+A visual sandbox for understanding how inflation, rates, oil shocks, fiscal deficits and liquidity propagate through bonds, banks, credit and growth.
+
+</p>
+
+</div>
+
+
+<div class="hero-right">
+
+<div class="cockpit">
+
+<div class="core">
+SYSTEM<br>STRESS
+</div>
+
+<div class="chip chip1">
+Inflation
+</div>
+
+<div class="chip chip2">
+Rates
+</div>
+
+<div class="chip chip3">
+Bonds
+</div>
+
+<div class="chip chip4">
+Banks
+</div>
+
+<div class="chip chip5">
+Credit
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<section class="dashboard">
+
+<div class="controls">
+
+<h2>
+Scenario Builder
+</h2>
+
+<div class="control">
+
+<label>
+Inflation Shock
+<span id="inflationValue">
+3%
+</span>
+</label>
+
+<input id="inflationSlider"
+type="range"
+min="0"
+max="8"
+step="0.5"
+value="3">
+
+</div>
+
+
+
+<div class="control">
+
+<label>
+Rate Shock
+<span id="rateValue">
+100 bp
+</span>
+</label>
+
+<input id="rateSlider"
+type="range"
+min="0"
+max="400"
+step="25"
+value="100">
+
+</div>
+
+
+
+<div class="control">
+
+<label>
+Oil Shock
+<span id="oilValue">
+20%
+</span>
+</label>
+
+<input id="oilSlider"
+type="range"
+min="0"
+max="80"
+step="5"
+value="20">
+
+</div>
+
+
+
+<div class="control">
+
+<label>
+Fiscal Deficit
+<span id="deficitValue">
+6%
+</span>
+</label>
+
+<input id="deficitSlider"
+type="range"
+min="0"
+max="15"
+step="0.5"
+value="6">
+
+</div>
+
+
+
+<div class="control">
+
+<label>
+QE / QT
+<span id="qeValue">
+Neutral
+</span>
+</label>
+
+<input id="qeSlider"
+type="range"
+min="-100"
+max="100"
+step="10"
+value="0">
+
+</div>
+
+
+
+<div class="scenario-buttons">
+
+<button id="inflationScenario">
+1970s Inflation
+</button>
+
+<button id="volckerScenario">
+Volcker Shock
+</button>
+
+<button id="gfcScenario">
+2008 Crisis
+</button>
+
+<button id="covidScenario">
+COVID QE
+</button>
+
+<button id="inflation2022Scenario">
+2022 Inflation
+</button>
+
+</div>
+
+</div>
+
+
+
+
+<div class="output-panel">
+
+<h2>
+System Dashboard
+</h2>
+
+
+<div class="metrics">
+
+<div class="metric">
+
+<small>
+System Stress
+</small>
+
+<strong id="systemStress">
+42
+</strong>
+
+</div>
+
+
+<div class="metric">
+
+<small>
+Bond Market
+</small>
+
+<strong id="bondStress">
+Moderate
+</strong>
+
+</div>
+
+
+<div class="metric">
+
+<small>
+Banking System
+</small>
+
+<strong id="bankStress">
+Watch
+</strong>
+
+</div>
+
+
+<div class="metric">
+
+<small>
+Policy Bias
+</small>
+
+<strong id="policyBias">
+Neutral
+</strong>
+
+</div>
+
+</div>
+
+
+
+<div id="network">
+
+</div>
+
+
+<div id="insight">
+
+Moderate stress across the financial system.
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+<section class="modules">
+
+<div class="module">
+
+<h3>
+Bond Market
+</h3>
+
+<div class="bar">
+<span id="bondBar"></span>
+</div>
+
+<p id="bondText">
+Duration pressure increasing.
+</p>
+
+</div>
+
+
+
+<div class="module">
+
+<h3>
+Banking System
+</h3>
+
+<div class="bar">
+<span id="bankBar"></span>
+</div>
+
+<p id="bankText">
+Funding conditions remain stable.
+</p>
+
+</div>
+
+
+
+<div class="module">
+
+<h3>
+Credit Conditions
+</h3>
+
+<div class="bar">
+<span id="creditBar"></span>
+</div>
+
+<p id="creditText">
+Credit slowly tightening.
+</p>
+
+</div>
+
+
+
+<div class="module">
+
+<h3>
+Growth Outlook
+</h3>
+
+<div class="bar">
+<span id="growthBar"></span>
+</div>
+
+<p id="growthText">
+Growth remains resilient.
+</p>
+
+</div>
+
+</section>
+
+
+
+
+<footer>
+
+BondStats Macro Flight Simulator © 2025
+
+</footer>
+
+
+
+<script src="scenarios.js"></script>
+
+<script src="engine.js"></script>
+
+<script src="network.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
